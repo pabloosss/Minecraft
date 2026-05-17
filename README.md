@@ -10,16 +10,17 @@ Repozytorium zapisuje aktualny stan prototypu MineBox.
 - Presety: Survival, Creative, PvP Lite, SkyBlock placeholder.
 - Reverse SSH tunnel z lokalnej VM do VPS home.pl.
 - Publiczne wejście do serwera przez `31.70.86.109:25565`.
-- Domena testowa: `test.mine-box.pl` wskazuje rekordem A na VPS.
+- Domena testowa `test.mine-box.pl` działa w Minecraft.
+- Minecraft działa przez domenę bez wpisywania portu dzięki rekordowi SRV.
 
 ## Aktualna architektura
 
 ```text
 Gracz Minecraft
 ↓
-31.70.86.109:25565 / test.mine-box.pl:25565
-↓
-VPS home.pl
+test.mine-box.pl
+↓ DNS A + SRV
+VPS home.pl / 31.70.86.109:25565
 ↓ reverse SSH tunnel
 MineBox VM / VirtualBox
 ↓
@@ -31,8 +32,8 @@ Minecraft server :25565
 ```text
 Lokalny panel: http://192.168.1.42:5000
 Lokalny Minecraft: 192.168.1.42:25565
-Publiczny Minecraft: 31.70.86.109:25565
-Domena testowa: test.mine-box.pl
+Publiczny Minecraft IP: 31.70.86.109:25565
+Publiczny Minecraft domena: test.mine-box.pl
 ```
 
 ## Foldery
