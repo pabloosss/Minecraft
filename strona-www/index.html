@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MineBox — własny serwer Minecraft w pudełku</title>
-  <meta name="description" content="MineBox to fizyczny serwer Minecraft w pudełku. Podłącz do internetu, kliknij w panelu i graj ze znajomymi." />
+  <title>MineBox — prywatny serwer Minecraft w pudełku</title>
+  <meta name="description" content="MineBox to fizyczny serwer Minecraft w pudełku dla znajomych, rodziny i małych społeczności. Podłącz, ustaw świat w panelu i graj." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -19,11 +19,10 @@
       <div class="nav-links">
         <a href="#jak-dziala">Jak działa</a>
         <a href="#mapa">Mapa</a>
+        <a href="#dla-kogo">Dla kogo</a>
         <a href="#modele">Modele</a>
-        <a href="#galeria">Grafiki</a>
         <a href="#faq">FAQ</a>
         <a href="#kontakt">Kontakt</a>
-        <a class="login-link" href="#panel">Panel klienta</a>
       </div>
     </nav>
   </header>
@@ -32,51 +31,55 @@
     <section class="hero section">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow">Serwer Minecraft bez kombinowania</p>
+          <p class="eyebrow">MineBox • prywatny serwer gry</p>
           <h1>Własny serwer Minecraft w pudełku.</h1>
-          <p class="lead">MineBox to fizyczne urządzenie do prywatnego serwera Minecraft. Podłączasz je do prądu i internetu, a potem tworzysz świat z panelu.</p>
+          <p class="lead">MineBox to fizyczne urządzenie dla ekipy, która chce mieć swój świat bez ręcznego ustawiania Linuxa, Javy, plików i portów.</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#kontakt">Zapytaj o MineBoxa</a>
             <a class="btn btn-ghost" href="#jak-dziala">Zobacz jak działa</a>
           </div>
           <div class="trust-row">
-            <span>⚡ Start jednym kliknięciem</span>
-            <span>🧩 Pluginy i mody</span>
-            <span>💾 Backupy świata</span>
+            <span>⚡ start świata z panelu</span>
+            <span>🧩 pluginy i mody</span>
+            <span>💾 backupy</span>
           </div>
         </div>
         <div class="hero-image-card">
-          <img src="grafiki/hero-minebox.svg" alt="Grafika MineBox — własny serwer Minecraft w pudełku">
+          <img src="grafiki/hero-minebox.svg" alt="MineBox jako prywatny serwer Minecraft w pudełku">
         </div>
       </div>
     </section>
 
     <section class="stats strip">
       <div class="container stats-grid">
-        <div><strong>1</strong><span>fizyczne pudełko</span></div>
-        <div><strong>3 kroki</strong><span>podłącz → kliknij → graj</span></div>
-        <div><strong>24/7</strong><span>serwer dla ekipy</span></div>
-        <div><strong>0</strong><span>ręcznego dłubania</span></div>
+        <div><strong>LAN</strong><span>dla znajomych</span></div>
+        <div><strong>Panel</strong><span>start, stop, backup</span></div>
+        <div><strong>Box</strong><span>fizyczny serwer</span></div>
+        <div><strong>Świat</strong><span>pod Twoją ekipę</span></div>
       </div>
     </section>
 
     <section id="jak-dziala" class="section">
       <div class="container">
-        <div class="section-head"><p class="eyebrow">Prosty schemat</p><h2>Jak działa MineBox?</h2><p>MineBox ma być prosty: pudełko stoi u Ciebie albo u klienta, a panel pomaga uruchomić serwer i pilnować podstawowych rzeczy.</p></div>
+        <div class="section-head">
+          <p class="eyebrow">Prosty schemat</p>
+          <h2>Jak działa MineBox?</h2>
+          <p>Użytkownik nie musi znać komend. MineBox ma ukryć technikalia i dać prosty sposób na uruchomienie prywatnego serwera.</p>
+        </div>
         <div class="flow-map">
-          <div class="flow-node"><span>👤</span><strong>Gracz / admin</strong><small>wchodzi w panel</small></div>
+          <div class="flow-node"><span>🔌</span><strong>Podłączasz box</strong><small>prąd + internet</small></div>
           <div class="flow-arrow">→</div>
-          <div class="flow-node"><span>🖥️</span><strong>Panel MineBox</strong><small>start, stop, backup</small></div>
+          <div class="flow-node"><span>🖥️</span><strong>Wchodzisz w panel</strong><small>nazwa, wersja, RAM</small></div>
           <div class="flow-arrow">→</div>
-          <div class="flow-node"><span>🟩</span><strong>Fizyczny box</strong><small>uruchamia serwer</small></div>
+          <div class="flow-node"><span>🟩</span><strong>MineBox odpala serwer</strong><small>pliki, EULA, Java</small></div>
           <div class="flow-arrow">→</div>
-          <div class="flow-node"><span>⛏️</span><strong>Minecraft</strong><small>ekipa gra razem</small></div>
+          <div class="flow-node"><span>⛏️</span><strong>Gracie razem</strong><small>adres dla ekipy</small></div>
         </div>
         <div class="steps">
-          <article class="step-card"><span class="step-number">1</span><h3>Podłącz MineBoxa</h3><p>Wpinasz zasilanie i internet. Urządzenie startuje i czeka na konfigurację.</p></article>
-          <article class="step-card"><span class="step-number">2</span><h3>Ustaw świat</h3><p>Wybierasz nazwę, wersję, tryb gry, RAM i podstawowe ustawienia.</p></article>
-          <article class="step-card"><span class="step-number">3</span><h3>Kliknij Start</h3><p>MineBox przygotowuje pliki, uruchamia Javę i odpala serwer.</p></article>
-          <article class="step-card"><span class="step-number">4</span><h3>Graj i zarządzaj</h3><p>Masz status, logi, backupy i przyciski do podstawowej obsługi.</p></article>
+          <article class="step-card"><span class="step-number">1</span><h3>Podłącz</h3><p>Box stoi w domu, biurze albo przy ekipie. Wpinasz zasilanie i internet.</p></article>
+          <article class="step-card"><span class="step-number">2</span><h3>Ustaw</h3><p>W panelu wybierasz nazwę, tryb gry, wersję, ilość pamięci i podstawowe opcje.</p></article>
+          <article class="step-card"><span class="step-number">3</span><h3>Uruchom</h3><p>MineBox przygotowuje serwer i uruchamia go bez ręcznego wpisywania komend.</p></article>
+          <article class="step-card"><span class="step-number">4</span><h3>Zarządzaj</h3><p>Masz status, logi, restart, backupy i miejsce na późniejsze dodatki.</p></article>
         </div>
       </div>
     </section>
@@ -84,15 +87,15 @@
     <section id="mapa" class="section showcase-section">
       <div class="container">
         <div class="showcase-card">
-          <img class="showcase-image" src="grafiki/minebox-mapa.jpg" alt="Mapa działania MineBox">
+          <img class="showcase-image" src="grafiki/minebox-mapa.svg" alt="Mapa działania MineBox">
           <div class="showcase-copy">
             <p class="eyebrow">Wizualnie</p>
-            <h2>Cały MineBox na jednej mapie.</h2>
-            <p>Ta grafika pokazuje klientowi cały proces: logowanie, utworzenie serwera, instalację, start, grę, zarządzanie i rozwój społeczności.</p>
+            <h2>Cały pomysł w jednym obrazku.</h2>
+            <p>MineBox łączy fizyczny serwer, prosty panel i świat Minecrafta. Klient kupuje urządzenie, podłącza je i zarządza swoim serwerem bez technicznego chaosu.</p>
             <div class="showcase-points">
-              <div>🟩 klient rozumie produkt w kilka sekund</div>
-              <div>🟩 pasuje do strony sprzedażowej</div>
-              <div>🟩 można ją później użyć w ofercie i social mediach</div>
+              <div>🟩 jasne dla rodziców, graczy i małych ekip</div>
+              <div>🟩 dobre pod sprzedaż fizycznego urządzenia</div>
+              <div>🟩 gotowe do użycia w ofercie i social mediach</div>
             </div>
           </div>
         </div>
@@ -101,18 +104,46 @@
 
     <section class="section product-section">
       <div class="container product-grid">
-        <div class="product-art" aria-hidden="true"><div class="box3d"><div class="box-top">MineBox</div><div class="box-front"><span></span><span></span><span></span></div><div class="box-side"><i></i><i></i></div></div><div class="cable"></div><div class="router">Wi‑Fi / LAN</div></div>
-        <div><p class="eyebrow">Produkt fizyczny</p><h2>To nie tylko strona. To gotowe urządzenie dla gracza.</h2><p>Sprzedajesz mały serwer w pudełku. Klient dostaje sprzęt, podpina go u siebie i korzysta z prostego panelu zamiast ręcznie grzebać w plikach.</p><div class="feature-list light"><div>✅ Dobry pomysł na LAN party i paczkę znajomych</div><div>✅ Własny świat bez typowego hostingu</div><div>✅ Możliwość późniejszego panelu klienta</div></div></div>
+        <div class="product-art" aria-hidden="true"><div class="box3d"><div class="box-top">MineBox</div><div class="box-front"><span></span><span></span><span></span></div><div class="box-side"><i></i><i></i></div></div><div class="cable"></div><div class="router">LAN / Wi‑Fi</div></div>
+        <div>
+          <p class="eyebrow">Produkt fizyczny</p>
+          <h2>Sprzęt, panel i serwer w jednym ekosystemie.</h2>
+          <p>MineBox ma być gotowym zestawem dla osób, które chcą grać na swoim świecie, ale nie chcą samodzielnie stawiać serwera od zera.</p>
+          <div class="feature-list light">
+            <div>✅ prywatny świat dla konkretnej ekipy</div>
+            <div>✅ prosty panel zamiast ręcznych komend</div>
+            <div>✅ możliwość rozwoju o zdalny panel klienta</div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="section dark-panel"><div class="container feature-grid"><div><p class="eyebrow">Dla kogo?</p><h2>Dla ekip, które chcą swój świat.</h2><p>MineBox pasuje do paczki znajomych, rodziny, szkoły, małej społeczności Discord albo wyjazdu LAN.</p></div><div class="feature-list"><div>✅ Prywatny serwer bez publicznego panelu hostingu</div><div>✅ Łatwe uruchamianie światów</div><div>✅ Backupy i podstawowa kontrola</div><div>✅ Profile: survival, creative, modded</div></div></div></section>
+    <section id="dla-kogo" class="section dark-panel">
+      <div class="container feature-grid">
+        <div><p class="eyebrow">Dla kogo?</p><h2>Dla ekip, które chcą swój świat.</h2><p>MineBox pasuje do paczki znajomych, rodziny, szkoły, małej społeczności Discord albo wyjazdu LAN.</p></div>
+        <div class="feature-list">
+          <div>✅ prywatny serwer bez typowego hostingu</div>
+          <div>✅ szybkie światy survival / creative / modded</div>
+          <div>✅ lokalna kontrola nad sprzętem i danymi</div>
+          <div>✅ mniej technicznej konfiguracji dla użytkownika</div>
+        </div>
+      </div>
+    </section>
 
-    <section id="modele" class="section"><div class="container"><div class="section-head"><p class="eyebrow">Modele</p><h2>Wybierz MineBoxa pod swoją ekipę</h2><p>Przykładowe pakiety na start. Finalne parametry można później dopasować do sprzętu.</p></div><div class="pricing"><article class="price-card"><div class="model-icon">🌱</div><h3>MineBox Lite</h3><p class="price">2–5 graczy</p><ul><li>Survival bez dużych modów</li><li>Panel start/stop</li><li>Podstawowe backupy</li></ul><a href="#kontakt" class="btn btn-small">Zapytaj</a></article><article class="price-card featured"><span class="badge">Najlepszy start</span><div class="model-icon">⚡</div><h3>MineBox Standard</h3><p class="price">5–10 graczy</p><ul><li>Survival + pluginy</li><li>Adres serwera</li><li>Backupy i logi</li></ul><a href="#kontakt" class="btn btn-primary btn-small">Zapytaj</a></article><article class="price-card"><div class="model-icon">🚀</div><h3>MineBox Pro</h3><p class="price">10–20 graczy</p><ul><li>Więcej RAM i miejsca</li><li>Mody / paczki modów</li><li>Dla większej społeczności</li></ul><a href="#kontakt" class="btn btn-small">Zapytaj</a></article></div></div></section>
+    <section id="modele" class="section">
+      <div class="container">
+        <div class="section-head"><p class="eyebrow">Planowane modele</p><h2>Dobierz MineBoxa pod wielkość ekipy</h2><p>Parametry i ceny będą dopasowane po testach prototypu. Na start strona pokazuje logiczny podział oferty.</p></div>
+        <div class="pricing">
+          <article class="price-card"><div class="model-icon">🌱</div><h3>MineBox Lite</h3><p class="price">2–5 graczy</p><ul><li>mały survival</li><li>podstawowy panel</li><li>backupy świata</li></ul><a href="#kontakt" class="btn btn-small">Zapytaj</a></article>
+          <article class="price-card featured"><span class="badge">Najlepszy start</span><div class="model-icon">⚡</div><h3>MineBox Standard</h3><p class="price">5–10 graczy</p><ul><li>survival + pluginy</li><li>adres serwera</li><li>logi i kopie</li></ul><a href="#kontakt" class="btn btn-primary btn-small">Zapytaj</a></article>
+          <article class="price-card"><div class="model-icon">🚀</div><h3>MineBox Pro</h3><p class="price">10–20 graczy</p><ul><li>więcej RAM i miejsca</li><li>mody / paczki modów</li><li>dla większej społeczności</li></ul><a href="#kontakt" class="btn btn-small">Zapytaj</a></article>
+        </div>
+      </div>
+    </section>
 
     <section id="galeria" class="section gallery-section">
       <div class="container">
-        <div class="section-head"><p class="eyebrow">Grafiki</p><h2>MineBox w skrócie</h2><p>Trzy proste obrazki, które tłumaczą klientowi cały pomysł.</p></div>
+        <div class="section-head"><p class="eyebrow">Proces</p><h2>Podłącz. Kliknij. Graj.</h2><p>Trzy proste kroki, które mają tłumaczyć produkt bez technicznego języka.</p></div>
         <div class="gallery-grid">
           <article class="gallery-card"><img class="gallery-img" src="grafiki/podlacz.svg" alt="Podłącz MineBox"><h3>Podłącz</h3><p>Prąd, internet i gotowe. Box stoi u Ciebie lub u klienta.</p></article>
           <article class="gallery-card"><img class="gallery-img" src="grafiki/kliknij.svg" alt="Kliknij w panelu MineBox"><h3>Kliknij</h3><p>Panel pokazuje serwer, graczy, status i backupy.</p></article>
@@ -122,11 +153,16 @@
       </div>
     </section>
 
-    <section id="panel" class="section panel-preview"><div class="container panel-grid"><div><p class="eyebrow">Panel klienta</p><h2>Później: logowanie i hosting</h2><p>Strona główna może później prowadzić do panel.mine-box.pl, gdzie klient zobaczy status urządzenia, serwery, backupy i konsolę.</p></div><div class="mock-panel"><div class="mock-top"></div><div class="mock-row online"><span>Survival</span><strong>ONLINE</strong></div><div class="mock-row"><span>Gracze</span><strong>4/10</strong></div><div class="mock-row"><span>Backup</span><strong>Dzisiaj</strong></div></div></div></section>
+    <section id="panel" class="section panel-preview">
+      <div class="container panel-grid">
+        <div><p class="eyebrow">Panel klienta</p><h2>Zarządzanie serwerem z przeglądarki.</h2><p>Docelowy panel klienta pokaże status urządzenia, serwery, backupy, logi i podstawowe akcje administracyjne.</p></div>
+        <div class="mock-panel"><div class="mock-top"></div><div class="mock-row online"><span>Survival</span><strong>ONLINE</strong></div><div class="mock-row"><span>Gracze</span><strong>4/10</strong></div><div class="mock-row"><span>Backup</span><strong>Dzisiaj</strong></div><div class="mock-row"><span>Akcja</span><strong>Restart / Stop</strong></div></div>
+      </div>
+    </section>
 
-    <section id="faq" class="section"><div class="container"><div class="section-head"><p class="eyebrow">FAQ</p><h2>Najczęstsze pytania</h2></div><div class="faq-list"><details><summary>Czy to jest hosting Minecraft?</summary><p>Na start MineBox to fizyczne urządzenie. Hosting online można dodać później jako osobną usługę.</p></details><details><summary>Czy trzeba umieć Linuxa?</summary><p>Docelowo nie. Użytkownik ma klikać w panelu, a techniczne rzeczy robi MineBox.</p></details><details><summary>Czy da się mieć mody?</summary><p>Tak, ale mocniejsze paczki modów będą wymagały mocniejszej wersji MineBoxa.</p></details><details><summary>Czy będzie logowanie?</summary><p>Tak, później można zrobić panel klienta pod osobnym adresem, np. panel.mine-box.pl.</p></details></div></div></section>
+    <section id="faq" class="section"><div class="container"><div class="section-head"><p class="eyebrow">FAQ</p><h2>Najczęstsze pytania</h2></div><div class="faq-list"><details><summary>Czy MineBox zastępuje hosting Minecraft?</summary><p>MineBox idzie w stronę fizycznego urządzenia z prostym panelem. Hosting online może być osobną usługą w kolejnym etapie.</p></details><details><summary>Czy użytkownik musi znać Linuxa?</summary><p>Nie taki jest cel. Użytkownik ma klikać w panelu, a techniczne rzeczy mają dziać się pod spodem.</p></details><details><summary>Czy da się mieć pluginy i mody?</summary><p>Tak. Pluginy i mody są częścią planu, ale większe paczki modów będą wymagały mocniejszej wersji urządzenia.</p></details><details><summary>Czy będzie zdalne logowanie?</summary><p>Tak, docelowo panel klienta może działać pod adresem panel.mine-box.pl i łączyć się z fizycznym MineBoxem.</p></details></div></div></section>
 
-    <section id="kontakt" class="section contact-section"><div class="container contact-grid"><div><p class="eyebrow">Kontakt</p><h2>Chcesz MineBoxa?</h2><p>Napisz, ilu graczy ma grać i czy serwer ma mieć mody. Na start formularz może działać przez e-mail.</p><p class="contact-mail">kontakt@mine-box.pl</p></div><form class="contact-form" action="mailto:kontakt@mine-box.pl" method="post" enctype="text/plain"><label>Imię<input name="imie" placeholder="np. Paweł" required></label><label>E-mail<input type="email" name="email" placeholder="twoj@email.pl" required></label><label>Jaki MineBox?<select name="model"><option>Lite</option><option>Standard</option><option>Pro</option><option>Nie wiem — doradźcie</option></select></label><label>Wiadomość<textarea name="wiadomosc" rows="5" placeholder="Ilu graczy? Pluginy? Mody?"></textarea></label><button class="btn btn-primary" type="submit">Wyślij zapytanie</button></form></div></section>
+    <section id="kontakt" class="section contact-section"><div class="container contact-grid"><div><p class="eyebrow">Kontakt</p><h2>Chcesz MineBoxa?</h2><p>Napisz, ilu graczy ma grać, czy potrzebujesz pluginów/modów i gdzie box ma stać.</p><p class="contact-mail">kontakt@mine-box.pl</p></div><form class="contact-form" action="mailto:kontakt@mine-box.pl" method="post" enctype="text/plain"><label>Imię<input name="imie" placeholder="Twoje imię" required></label><label>E-mail<input type="email" name="email" placeholder="kontakt@email.pl" required></label><label>Jaki MineBox?<select name="model"><option>Lite — mała ekipa</option><option>Standard — najlepszy start</option><option>Pro — większa ekipa / mody</option><option>Nie wiem — proszę o doradzenie</option></select></label><label>Wiadomość<textarea name="wiadomosc" rows="5" placeholder="Napisz: ilu graczy, czy mają być mody/pluginy i do czego chcesz użyć MineBoxa."></textarea></label><button class="btn btn-primary" type="submit">Wyślij zapytanie</button></form></div></section>
   </main>
 
   <footer class="footer"><div class="container footer-grid"><strong>MineBox</strong><span>Podłącz. Kliknij. Graj.</span><span>© 2026 mine-box.pl</span></div></footer>
