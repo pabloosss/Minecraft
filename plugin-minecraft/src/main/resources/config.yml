@@ -1,0 +1,35 @@
+# MineBox Ultimate
+# Jeden plugin do połączenia serwera Minecraft z panelem MineBox.
+
+server:
+  id: "local-test-server"
+  display-name: "MineBox Test Server"
+
+panel:
+  enabled: false
+  api-url: "https://mine-box.pl/api"
+  api-key: "CHANGE_ME"
+  sync-interval-seconds: 30
+
+vip:
+  enabled: true
+  default-duration-days: 30
+  permission: "minebox.vip"
+  join-message: "&6[VIP] &e%player% &7dołączył na serwer!"
+  packages:
+    vip:
+      display-name: "VIP"
+      commands-on-buy:
+        - "lp user %player% permission set minebox.vip true"
+        - "say %player% kupił rangę VIP!"
+    svip:
+      display-name: "SVIP"
+      commands-on-buy:
+        - "lp user %player% permission set minebox.vip true"
+        - "lp user %player% permission set minebox.svip true"
+        - "say %player% kupił rangę SVIP!"
+
+messages:
+  prefix: "&8[&aMineBox&8] &7"
+  no-permission: "&cNie masz uprawnień."
+  reloaded: "&aKonfiguracja przeładowana."
