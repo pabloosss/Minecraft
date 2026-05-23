@@ -1,0 +1,24 @@
+name: MineBoxUltimate
+version: ${version}
+main: pl.minebox.ultimate.MineBoxUltimatePlugin
+api-version: '1.20'
+author: MineBox
+website: https://mine-box.pl
+description: Ultimate connector plugin for MineBox hosting, VIP ranks, server status and panel integration.
+
+commands:
+  minebox:
+    description: Main MineBox Ultimate command.
+    usage: /minebox <status|reload|vip|sync>
+    permission: minebox.admin
+  vip:
+    description: Shows VIP status for the player.
+    usage: /vip
+
+permissions:
+  minebox.admin:
+    description: Allows managing MineBox Ultimate plugin.
+    default: op
+  minebox.vip:
+    description: Basic VIP permission granted by MineBox Ultimate.
+    default: false
