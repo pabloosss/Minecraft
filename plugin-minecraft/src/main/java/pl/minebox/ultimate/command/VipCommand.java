@@ -16,11 +16,12 @@ public final class VipCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player player)) {
+        if (!(sender instanceof Player)) {
             sender.sendMessage("Ta komenda jest tylko dla gracza.");
             return true;
         }
 
+        Player player = (Player) sender;
         player.sendMessage(plugin.vipManager().getVipStatusText(player));
         return true;
     }
