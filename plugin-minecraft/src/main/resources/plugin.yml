@@ -4,12 +4,12 @@ main: pl.minebox.ultimate.MineBoxUltimatePlugin
 api-version: '1.20'
 author: MineBox
 website: https://mine-box.pl
-description: Ultimate connector plugin for MineBox hosting, VIP ranks, server status and panel integration.
+description: Local MineBox plugin for PaperMC, timed VIP/SVIP, server status and optional local panel sync.
 
 commands:
   minebox:
-    description: Main MineBox Ultimate command.
-    usage: /minebox <status|reload|vip|sync>
+    description: Main MineBox Ultimate admin command.
+    usage: /minebox <status|reload|sync|vip>
     permission: minebox.admin
   vip:
     description: Shows VIP status for the player.
@@ -21,4 +21,7 @@ permissions:
     default: op
   minebox.vip:
     description: Basic VIP permission granted by MineBox Ultimate.
+    default: false
+  minebox.svip:
+    description: SVIP permission granted by MineBox Ultimate.
     default: false
