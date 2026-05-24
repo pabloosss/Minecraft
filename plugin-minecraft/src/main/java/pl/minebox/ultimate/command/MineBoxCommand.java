@@ -38,18 +38,30 @@ public final class MineBoxCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        switch (args[0].toLowerCase(Locale.ROOT)) {
-            case "status" -> sendStatus(sender);
-            case "reload" -> {
+        String subCommand = args[0].toLowerCase(Locale.ROOT);
+        switch (subCommand) {
+            case "status":
+                sendStatus(sender);
+                break;
+            case "reload":
                 plugin.reloadMineBox();
                 sender.sendMessage(message(plugin.getConfig().getString("messages.reloaded", "&aKonfiguracja przeładowana.")));
-            }
-            case "sync" -> {
-                Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> plugin.apiClient().pushServerStatus());
+                break;
+            case "sync":
+                Bukkit.getScheduler().runTaskAsynchronously(plugin, new Runnable() {
+                    @Override
+                    public void run() {
+                        plugin.apiClient().pushServerStatus();
+                    }
+                });
                 sender.sendMessage(message("&aWysłano status serwera do panelu MineBox."));
-            }
-            case "vip" -> handleVip(sender, args);
-            default -> sendHelp(sender);
+                break;
+            case "vip":
+                handleVip(sender, args);
+                break;
+            default:
+                sendHelp(sender);
+                break;
         }
 
         return true;
@@ -61,11 +73,20 @@ public final class MineBoxCommand implements CommandExecutor, TabCompleter {
             return;
         }
 
-        switch (args[1].toLowerCase(Locale.ROOT)) {
-            case "give" -> handleVipGive(sender, args);
-            case "remove" -> handleVipRemove(sender, args);
-            case "list" -> handleVipList(sender);
-            default -> sendVipHelp(sender);
+        String vipCommand = args[1].toLowerCase(Locale.ROOT);
+        switch (vipCommand) {
+            case "give":
+                handleVipGive(sender, args);
+                break;
+            case "remove":
+                handleVipRemove(sender, args);
+                break;
+            case "list":
+                handleVipList(sender);
+                break;
+            default:
+                sendVipHelp(sender);
+                break;
         }
     }
 
@@ -201,9 +222,9 @@ public final class MineBoxCommand implements CommandExecutor, TabCompleter {
             return filter(plugin.vipManager().getPackageNames(), args[3]);
         }
         if (args.length == 5 && args[0].equalsIgnoreCase("vip") && args[1].equalsIgnoreCase("give")) {
-            return filter(List.of("30", "60", "90", "0"), args[4]);
+            return filter(Arrays.asList("30", "60", "90", "0"), args[4]);
         }
-        return new ArrayList<>();
+        return new ArrayList<String>();
     }
 
     private List<String> filter(List<String> values, String prefix) {
