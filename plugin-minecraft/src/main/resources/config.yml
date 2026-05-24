@@ -1,5 +1,5 @@
 # MineBox Ultimate
-# Jeden plugin do połączenia serwera Minecraft z panelem MineBox.
+# Plugin dla fizycznego MineBoxa: lokalny serwer Minecraft + lokalny panel Flask.
 
 server:
   id: "local-test-server"
@@ -7,7 +7,7 @@ server:
 
 panel:
   enabled: false
-  api-url: "https://mine-box.pl/api"
+  api-url: "http://127.0.0.1:5000/api"
   api-key: "CHANGE_ME"
   sync-interval-seconds: 30
 
@@ -15,19 +15,27 @@ vip:
   enabled: true
   default-duration-days: 30
   permission: "minebox.vip"
-  join-message: "&6[VIP] &e%player% &7dołączył na serwer!"
+  join-message: "&6[%package%] &e%player% &7dołączył na serwer! &8(&7zostało: %remaining%&8)"
+
+  # Komendy wykonywane przy usuwaniu lub wygaśnięciu VIP-a.
+  # Jeśli LuckPerms nie jest zainstalowany, komendy po prostu nie wykonają efektu,
+  # ale plugin nadal zapisze/usuwa dane w vips.yml.
+  commands-on-remove:
+    - "lp user %player% permission unset minebox.vip"
+    - "lp user %player% permission unset minebox.svip"
+
   packages:
     vip:
       display-name: "VIP"
       commands-on-buy:
         - "lp user %player% permission set minebox.vip true"
-        - "say %player% kupił rangę VIP!"
+        - "say %player% kupił rangę VIP na %days% dni!"
     svip:
       display-name: "SVIP"
       commands-on-buy:
         - "lp user %player% permission set minebox.vip true"
         - "lp user %player% permission set minebox.svip true"
-        - "say %player% kupił rangę SVIP!"
+        - "say %player% kupił rangę SVIP na %days% dni!"
 
 messages:
   prefix: "&8[&aMineBox&8] &7"
