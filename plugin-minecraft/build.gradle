@@ -5,38 +5,34 @@ plugins {
 group = 'pl.minebox'
 version = '0.1.0'
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
-}
+sourceCompatibility = 17
+targetCompatibility = 17
 
 repositories {
     mavenCentral()
-    maven { url = 'https://repo.papermc.io/repository/maven-public/' }
+    maven { url 'https://repo.papermc.io/repository/maven-public/' }
 }
 
 dependencies {
     compileOnly 'io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT'
 }
 
-tasks.withType(JavaCompile).configureEach {
+compileJava {
     options.encoding = 'UTF-8'
 }
 
 processResources {
-    filteringCharset = 'UTF-8'
-    filesMatching('plugin.yml') {
+    from(sourceSets.main.resources.srcDirs) {
+        include 'plugin.yml'
         expand(version: project.version)
+    }
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'plugin.yml'
     }
 }
 
 jar {
-    archiveBaseName.set('MineBoxUltimate')
-    archiveVersion.set('')
-    archiveClassifier.set('')
-}
-
-build {
-    dependsOn jar
+    baseName = 'MineBoxUltimate'
+    version = ''
+    classifier = ''
 }
