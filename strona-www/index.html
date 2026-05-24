@@ -4,8 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MineBox — prywatny serwer Minecraft w pudełku</title>
-  <meta name="description" content="MineBox to fizyczne urządzenie do uruchamiania prywatnego serwera Minecraft dla znajomych.">
+  <meta name="description" content="MineBox to projekt fizycznego urządzenia do uruchamiania prywatnego serwera Minecraft dla znajomych.">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="placeholder.css">
 </head>
 <body>
   <header class="site-header">
@@ -14,8 +15,8 @@
       <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
       <div class="nav-links">
         <a href="#co-to">Co to jest</a>
+        <a href="#status">Status</a>
         <a href="#how">Jak działa</a>
-        <a href="#models">Wersje</a>
         <a href="#panel">Panel</a>
         <a class="nav-cta" href="#contact">Kontakt</a>
       </div>
@@ -25,52 +26,67 @@
   <main id="top">
     <section class="hero">
       <div class="hero-copy">
-        <p class="eyebrow">Projekt MineBox</p>
-        <h1>Serwer Minecraft bez stawiania go od zera.</h1>
-        <p class="lead">MineBox to mały fizyczny serwer dla osób, które chcą grać ze znajomymi na własnym świecie, ale nie chcą ręcznie konfigurować plików, Javy i komend.</p>
+        <p class="eyebrow">Projekt / prototyp</p>
+        <h1>Prywatny serwer Minecraft w małym pudełku.</h1>
+        <p class="lead">MineBox to pomysł na fizyczny box, który ułatwia uruchomienie serwera Minecraft dla znajomych. Bez ręcznego grzebania w plikach i komendach.</p>
         <div class="hero-actions">
-          <a class="btn primary" href="#contact">Zapytaj o prototyp</a>
+          <a class="btn primary" href="#contact">Chcę przetestować</a>
           <a class="btn ghost" href="#how">Zobacz schemat</a>
         </div>
         <div class="chips">
           <span>fizyczny box</span>
-          <span>prosty panel</span>
-          <span>świat dla ekipy</span>
+          <span>panel WWW</span>
+          <span>serwer dla ekipy</span>
         </div>
       </div>
       <div class="hero-card">
-        <img src="grafiki/hero-minebox.svg" alt="Grafika przedstawiająca MineBox">
+        <div class="image-placeholder"><span><strong>Grafika hero</strong>Tu później wrzucimy render MineBoxa: mały box, panel WWW, klockowy klimat i serwer gry.</span></div>
       </div>
     </section>
 
     <section class="stats" id="co-to">
-      <div><strong>Urządzenie</strong><span>serwer stoi u Ciebie</span></div>
-      <div><strong>Panel</strong><span>start, stop, backup</span></div>
+      <div><strong>Box</strong><span>mały fizyczny serwer</span></div>
+      <div><strong>Panel</strong><span>proste zarządzanie</span></div>
       <div><strong>Minecraft</strong><span>świat dla znajomych</span></div>
       <div><strong>Prototyp</strong><span>projekt w budowie</span></div>
     </section>
 
+    <section id="status" class="section">
+      <div class="section-head">
+        <p class="eyebrow">Status projektu</p>
+        <h2>Najpierw prototyp, potem produkt.</h2>
+        <p>Nie udajemy gotowego hostingu. Na tym etapie najważniejsze jest sprawdzenie, czy box stabilnie uruchamia serwer i czy panel faktycznie upraszcza obsługę.</p>
+      </div>
+      <div class="status-list">
+        <div class="status-item"><b>Prototyp lokalny</b><span class="status-ok">w trakcie testów</span></div>
+        <div class="status-item"><b>Uruchamianie serwera Minecraft</b><span class="status-ok">podstawy działają</span></div>
+        <div class="status-item"><b>Panel klienta</b><span class="status-work">w budowie</span></div>
+        <div class="status-item"><b>Zdalne zarządzanie boxem</b><span class="status-work">kolejny etap</span></div>
+        <div class="status-item"><b>Gotowa sprzedaż sklepowa</b><span class="status-no">jeszcze nie</span></div>
+      </div>
+    </section>
+
     <section id="how" class="section">
       <div class="section-head">
-        <p class="eyebrow">Jak działa</p>
-        <h2>Prosty pomysł, bez lania wody.</h2>
-        <p>MineBox ma robić techniczne rzeczy pod spodem, a użytkownik ma mieć tylko kilka prostych przycisków.</p>
+        <p class="eyebrow">Jak ma działać</p>
+        <h2>Podłączasz, ustawiasz, gracie.</h2>
+        <p>Strona ma tłumaczyć pomysł w prosty sposób. Bez wielkich obietnic i bez udawania, że wszystko jest już gotowe.</p>
       </div>
       <div class="steps-grid">
         <article class="step-card">
-          <img src="grafiki/podlacz.svg" alt="Podłączenie MineBox">
+          <div class="image-placeholder"><span><strong>Podłącz</strong>Grafika: box + zasilanie + internet.</span></div>
           <h3>1. Podłączasz</h3>
-          <p>MineBox dostaje zasilanie i internet. Urządzenie startuje i jest gotowe do konfiguracji.</p>
+          <p>MineBox stoi u Ciebie. Wpinasz prąd i internet.</p>
         </article>
         <article class="step-card">
-          <img src="grafiki/kliknij.svg" alt="Panel MineBox">
+          <div class="image-placeholder"><span><strong>Panel</strong>Grafika: prosty dashboard z przyciskiem Start.</span></div>
           <h3>2. Ustawiasz</h3>
-          <p>W panelu wybierasz nazwę serwera, wersję gry i podstawowe opcje świata.</p>
+          <p>W panelu wybierasz nazwę serwera, wersję gry i podstawowe opcje.</p>
         </article>
         <article class="step-card">
-          <img src="grafiki/graj.svg" alt="Gra na serwerze">
+          <div class="image-placeholder"><span><strong>Gra</strong>Grafika: kilku graczy w klockowym świecie.</span></div>
           <h3>3. Gracie</h3>
-          <p>Znajomi dostają adres serwera i mogą wejść do wspólnego świata.</p>
+          <p>Znajomi dostają adres serwera i wchodzą do wspólnego świata.</p>
         </article>
       </div>
     </section>
@@ -78,45 +94,41 @@
     <section class="map-section">
       <div class="section-head">
         <p class="eyebrow">Schemat</p>
-        <h2>Panel, box i gra w jednym układzie.</h2>
-        <p>Na start najważniejsze są trzy rzeczy: fizyczny box, prosty panel oraz stabilne uruchamianie serwera.</p>
+        <h2>Cały pomysł na jednej grafice.</h2>
+        <p>Tu później podepniemy infografikę: użytkownik → panel → MineBox → serwer Minecraft → gracze.</p>
       </div>
-      <img class="map-img" src="grafiki/minebox-mapa.svg" alt="Schemat działania MineBox">
+      <div class="image-placeholder map-img placeholder-map"><span><strong>schemat-dzialania.png</strong>Placeholder pod infografikę działania MineBoxa.</span></div>
+    </section>
+
+    <section class="section product-section">
+      <div class="product-grid">
+        <div class="image-placeholder"><span><strong>produkt-minebox.png</strong>Render boxa na biurku obok routera i monitora.</span></div>
+        <div class="product-copy">
+          <p class="eyebrow">Sprzęt</p>
+          <h2>To ma być fizyczne urządzenie, nie tylko strona.</h2>
+          <p>Największa różnica względem zwykłego hostingu jest taka, że MineBox ma być małym urządzeniem u użytkownika. Panel ma tylko uprościć jego obsługę.</p>
+          <p>Dlatego strona powinna pokazywać produkt uczciwie: projekt hardware + panel + serwer gry.</p>
+        </div>
+      </div>
     </section>
 
     <section id="models" class="section models">
       <div class="section-head">
-        <p class="eyebrow">Wersje robocze</p>
-        <h2>Nie sprzedajemy bajek. Najpierw testy.</h2>
-        <p>Podział poniżej to kierunek oferty. Finalne parametry będą zależeć od testów sprzętu i realnego obciążenia.</p>
+        <p class="eyebrow">Warianty robocze</p>
+        <h2>Bez sztucznej oferty.</h2>
+        <p>Na razie nie podajemy twardych cen i parametrów. Najpierw testujemy, jaki sprzęt faktycznie ma sens.</p>
       </div>
       <div class="pricing">
-        <article class="price-card">
-          <h3>Lite</h3>
-          <p>mała ekipa</p>
-          <ul><li>prosty survival</li><li>mało pluginów</li><li>dla kilku osób</li></ul>
-          <a class="btn primary" href="#contact">Zapytaj</a>
-        </article>
-        <article class="price-card featured">
-          <span class="badge">najrozsądniejszy start</span>
-          <h3>Standard</h3>
-          <p>typowa paczka znajomych</p>
-          <ul><li>survival z pluginami</li><li>backupy i restart</li><li>najlepszy punkt startowy</li></ul>
-          <a class="btn primary" href="#contact">Zapytaj</a>
-        </article>
-        <article class="price-card">
-          <h3>Pro</h3>
-          <p>większy serwer</p>
-          <ul><li>więcej graczy</li><li>więcej RAM</li><li>mody po testach</li></ul>
-          <a class="btn primary" href="#contact">Zapytaj</a>
-        </article>
+        <article class="price-card"><h3>Mały box</h3><p>dla kilku osób</p><ul><li>prosty survival</li><li>mało pluginów</li><li>najtańszy kierunek</li></ul></article>
+        <article class="price-card featured"><span class="badge">najpierw testy</span><h3>Standardowy box</h3><p>dla typowej paczki</p><ul><li>survival z pluginami</li><li>backupy i restart</li><li>najrozsądniejszy start</li></ul></article>
+        <article class="price-card"><h3>Mocniejszy box</h3><p>pod mody</p><ul><li>więcej graczy</li><li>więcej RAM</li><li>do sprawdzenia w testach</li></ul></article>
       </div>
     </section>
 
     <section class="audience section">
       <div class="section-head">
         <p class="eyebrow">Dla kogo</p>
-        <h2>Dla osób, które chcą swój prywatny świat.</h2>
+        <h2>Dla osób, które chcą własny, prywatny świat.</h2>
         <p>Najlepiej pasuje do małej ekipy znajomych, domowego serwera, wyjazdu LAN albo prywatnej społeczności.</p>
       </div>
       <div class="audience-grid"><div>znajomi</div><div>dom</div><div>LAN</div><div>Discord</div></div>
@@ -125,19 +137,22 @@
     <section id="panel" class="section panel-section">
       <div class="section-head">
         <p class="eyebrow">Panel</p>
-        <h2>Najpierw podstawy, potem bajery.</h2>
-        <p>Panel ma na start robić konkretne rzeczy: status serwera, uruchomienie, zatrzymanie, restart i kopię świata.</p>
+        <h2>Minimum funkcji, które naprawdę są potrzebne.</h2>
+        <p>Na start panel powinien pokazywać status, graczy, logi oraz przyciski Start, Stop, Restart i Backup.</p>
       </div>
-      <div class="panel-demo">
-        <div class="panel-top"><span>MineBox Panel</span><strong>ONLINE</strong></div>
-        <div class="panel-row"><span>Survival</span><b>3/10 graczy</b><em>Restart</em></div>
-        <div class="panel-row"><span>Backup świata</span><b>dzisiaj</b><em>Kopia</em></div>
-        <div class="panel-row"><span>Status urządzenia</span><b>działa</b><em>Logi</em></div>
+      <div class="product-grid">
+        <div class="panel-demo">
+          <div class="panel-top"><span>MineBox Panel</span><strong>ONLINE</strong></div>
+          <div class="panel-row"><span>Survival</span><b>3/10 graczy</b><em>Restart</em></div>
+          <div class="panel-row"><span>Backup świata</span><b>dzisiaj</b><em>Kopia</em></div>
+          <div class="panel-row"><span>Status urządzenia</span><b>działa</b><em>Logi</em></div>
+        </div>
+        <div class="image-placeholder"><span><strong>panel-minebox.png</strong>Placeholder pod grafikę panelu MineBox.</span></div>
       </div>
     </section>
 
     <section id="faq" class="section faq">
-      <div class="section-head"><p class="eyebrow">FAQ</p><h2>Konkretnie</h2></div>
+      <div class="section-head"><p class="eyebrow">FAQ</p><h2>Krótko i konkretnie</h2></div>
       <div class="faq-list">
         <details><summary>Czy to już gotowy produkt?</summary><p>Nie. To projekt w fazie prototypu. Strona ma pokazywać kierunek i zbierać zainteresowanie.</p></details>
         <details><summary>Czy trzeba znać Linuxa?</summary><p>Docelowo nie. Użytkownik ma korzystać z panelu, a nie ręcznie wpisywać komendy.</p></details>
@@ -149,7 +164,7 @@
       <div class="contact-card">
         <div>
           <p class="eyebrow">Kontakt</p>
-          <h2>Chcesz sprawdzić MineBoxa?</h2>
+          <h2>Chcesz przetestować MineBoxa?</h2>
           <p>Napisz, ilu graczy ma grać i jaki typ serwera Cię interesuje.</p>
           <p class="mail">kontakt@mine-box.pl</p>
         </div>
