@@ -13,17 +13,20 @@ import pl.minebox.ultimate.MineBoxUltimatePlugin;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public final class VipManager {
 
     private final MineBoxUltimatePlugin plugin;
-    private final Map<UUID, VipEntry> vipEntries = new LinkedHashMap<>();
+    private final Map<UUID, VipEntry> vipEntries = new LinkedHashMap<UUID, VipEntry>();
     private File vipFile;
     private FileConfiguration vipConfig;
 
@@ -81,9 +84,14 @@ public final class VipManager {
 
     public List<VipEntry> listActiveVips() {
         removeExpiredVips();
-        return vipEntries.values().stream()
-                .sorted(Comparator.comparing(VipEntry::name, String.CASE_INSENSITIVE_ORDER))
-                .toList();
+        List<VipEntry> entries = new ArrayList<VipEntry>(vipEntries.values());
+        Collections.sort(entries, new Comparator<VipEntry>() {
+            @Override
+            public int compare(VipEntry first, VipEntry second) {
+                return String.CASE_INSENSITIVE_ORDER.compare(first.name(), second.name());
+            }
+        });
+        return entries;
     }
 
     public boolean packageExists(String packageName) {
@@ -126,7 +134,7 @@ public final class VipManager {
     }
 
     public int removeExpiredVips() {
-        List<VipEntry> expired = new ArrayList<>();
+        List<VipEntry> expired = new ArrayList<VipEntry>();
         for (VipEntry entry : vipEntries.values()) {
             if (entry.isExpired()) {
                 expired.add(entry);
@@ -141,7 +149,7 @@ public final class VipManager {
 
     public void handleJoin(Player player) {
         Optional<VipEntry> optionalVip = getVip(player);
-        if (optionalVip.isEmpty()) {
+        if (!optionalVip.isPresent()) {
             return;
         }
 
@@ -155,7 +163,7 @@ public final class VipManager {
 
     public String getVipStatusText(Player player) {
         Optional<VipEntry> optionalVip = getVip(player);
-        if (optionalVip.isEmpty()) {
+        if (!optionalVip.isPresent()) {
             return color("&8[&aMineBox&8] &7Nie masz aktywnego VIP-a.");
         }
 
@@ -168,9 +176,9 @@ public final class VipManager {
     public List<String> getPackageNames() {
         ConfigurationSection section = plugin.getConfig().getConfigurationSection("vip.packages");
         if (section == null) {
-            return List.of();
+            return new ArrayList<String>();
         }
-        return new ArrayList<>(section.getKeys(false));
+        return new ArrayList<String>(section.getKeys(false));
     }
 
     private void executePackageCommands(String playerName, String packageName, int days) {
@@ -190,7 +198,7 @@ public final class VipManager {
     private void executeRemoveCommands(String playerName) {
         List<String> commands = plugin.getConfig().getStringList("vip.commands-on-remove");
         if (commands.isEmpty()) {
-            commands = List.of(
+            commands = Arrays.asList(
                     "lp user %player% permission unset minebox.vip",
                     "lp user %player% permission unset minebox.svip"
             );
