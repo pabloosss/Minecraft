@@ -15,6 +15,6 @@ public final class PlayerJoinListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        plugin.vipManager().sendJoinMessage(event.getPlayer());
+        plugin.vipManager().handleJoin(event.getPlayer());
     }
 }
