@@ -10,7 +10,6 @@ commands:
   minebox:
     description: Main MineBox Ultimate admin command.
     usage: /minebox <status|reload|sync|vip>
-    permission: minebox.admin
   vip:
     description: Shows VIP status for the player.
     usage: /vip
