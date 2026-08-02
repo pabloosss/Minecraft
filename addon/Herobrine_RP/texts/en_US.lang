@@ -1,0 +1,5 @@
+pack.name=Herobrine: He Is Watching
+pack.description=Stable house construction, tunnel building and command menu.
+entity.hiw:herobrine.name=Herobrine
+item.spawn_egg.entity.hiw:herobrine.name=Herobrine Spawn Egg
+item.hiw:guide.name=Herobrine Journal - Commands

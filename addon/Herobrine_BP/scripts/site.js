@@ -1,0 +1,185 @@
+import { system } from "@minecraft/server";
+import { SITE } from "./config.js";
+import { getBlueprint } from "./blueprints.js";
+import {
+  blockAt,
+  getSurface,
+  isChunkLoaded,
+  isProtectedType,
+} from "./utils.js";
+import { debug } from "./logger.js";
+
+function candidateList(center) {
+  const values = [];
+  for (
+    let radius = SITE.minRadius;
+    radius <= SITE.maxRadius;
+    radius += SITE.ringStep
+  ) {
+    for (let i = 0; i < SITE.samplesPerRing; i++) {
+      const angle =
+        (Math.PI * 2 * i) / SITE.samplesPerRing + radius * 0.017;
+      values.push({
+        x: Math.floor(center.x + Math.cos(angle) * radius),
+        z: Math.floor(center.z + Math.sin(angle) * radius),
+        radius,
+      });
+    }
+  }
+  return values;
+}
+
+function loadedArea(dimension, center, radius, y) {
+  const samples = [
+    { x: center.x, y, z: center.z },
+    { x: center.x - radius, y, z: center.z - radius },
+    { x: center.x + radius, y, z: center.z - radius },
+    { x: center.x - radius, y, z: center.z + radius },
+    { x: center.x + radius, y, z: center.z + radius },
+  ];
+  return samples.every(location => isChunkLoaded(dimension, location));
+}
+
+export function inspectSite(
+  dimension,
+  candidate,
+  blueprint,
+  maxSlope = SITE.maxSlope,
+) {
+  const radius = Math.max(SITE.footprintRadius, blueprint.radius + 1);
+  const centerSurface = getSurface(dimension, candidate.x, candidate.z);
+  if (!centerSurface) return undefined;
+
+  if (!loadedArea(dimension, candidate, radius, centerSurface.location.y)) {
+    return undefined;
+  }
+
+  const heights = [];
+  let protectedCount = 0;
+
+  for (let x = -radius; x <= radius; x++) {
+    for (let z = -radius; z <= radius; z++) {
+      const surface = getSurface(
+        dimension,
+        candidate.x + x,
+        candidate.z + z,
+      );
+      if (!surface) return undefined;
+
+      heights.push(surface.location.y);
+      if (isProtectedType(surface.typeId)) protectedCount++;
+
+      for (
+        let y = surface.location.y + 1;
+        y <= Math.max(...heights) + blueprint.height + 2;
+        y++
+      ) {
+        const block = blockAt(dimension, {
+          x: candidate.x + x,
+          y,
+          z: candidate.z + z,
+        });
+        if (block && isProtectedType(block.typeId)) protectedCount++;
+        if (protectedCount > 0) return undefined;
+      }
+    }
+  }
+
+  const minimum = Math.min(...heights);
+  const maximum = Math.max(...heights);
+  const slope = maximum - minimum;
+  if (slope > maxSlope) return undefined;
+
+  return {
+    origin: {
+      x: Math.floor(candidate.x),
+      y: maximum + 1,
+      z: Math.floor(candidate.z),
+    },
+    score: slope * 100 + (candidate.radius ?? 0),
+    slope,
+    dimension: dimension.id,
+  };
+}
+
+export function findSiteInFront(player, variant) {
+  const blueprint = getBlueprint(variant);
+  const view = player.getViewDirection();
+  const horizontalLength = Math.max(
+    0.001,
+    Math.sqrt(view.x * view.x + view.z * view.z),
+  );
+  const forward = {
+    x: view.x / horizontalLength,
+    z: view.z / horizontalLength,
+  };
+  const right = { x: -forward.z, z: forward.x };
+
+  const probes = [
+    [12, 0],
+    [15, 0],
+    [18, 0],
+    [13, 7],
+    [13, -7],
+    [19, 8],
+    [19, -8],
+  ];
+
+  const found = [];
+  for (const [ahead, side] of probes) {
+    const candidate = {
+      x: Math.floor(player.location.x + forward.x * ahead + right.x * side),
+      z: Math.floor(player.location.z + forward.z * ahead + right.z * side),
+      radius: ahead,
+    };
+    const inspected = inspectSite(
+      player.dimension,
+      candidate,
+      blueprint,
+      SITE.manualMaxSlope,
+    );
+    if (inspected) found.push(inspected);
+  }
+
+  found.sort((a, b) => a.score - b.score);
+  return found[0];
+}
+
+export function findBuildingSite(entity, player, variant, callback) {
+  const dimension = entity.dimension;
+  const center = player?.location ?? entity.location;
+  const blueprint = getBlueprint(variant);
+  const list = candidateList(center);
+  let index = 0;
+  let best;
+
+  function step() {
+    if (!entity.isValid) return callback(undefined);
+
+    const batchEnd = Math.min(index + 4, list.length);
+    while (index < batchEnd) {
+      const value = inspectSite(
+        dimension,
+        list[index++],
+        blueprint,
+        SITE.maxSlope,
+      );
+      if (value && (!best || value.score < best.score)) best = value;
+    }
+
+    if (index >= list.length) {
+      debug(
+        "site",
+        best
+          ? `Wybrano ${best.origin.x},${best.origin.y},${best.origin.z}`
+          : "Brak miejsca",
+        system.currentTick,
+      );
+      callback(best);
+    } else {
+      system.run(step);
+    }
+  }
+
+  system.run(step);
+}

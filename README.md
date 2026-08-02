@@ -1,50 +1,64 @@
-# MineBox / Minecraft Server Panel
+# Herobrine: He Is Watching v0.11
 
-Repozytorium zapisuje aktualny stan prototypu MineBox.
+Stabilizacyjna wersja addonu Minecraft Bedrock.
 
-## Co już działa
+## Najwazniejsze zmiany
 
-- Panel WWW na lokalnej VM VirtualBox.
-- Start / stop / restart serwera Minecraft z panelu Flask.
-- PaperMC / Vanilla jako silniki testowe.
-- Presety: Survival, Creative, PvP Lite, SkyBlock placeholder.
-- Reverse SSH tunnel z lokalnej VM do VPS home.pl.
-- Publiczne wejście do serwera przez `31.70.86.109:25565`.
-- Domena testowa `test.mine-box.pl` działa w Minecraft.
-- Minecraft działa przez domenę bez wpisywania portu dzięki rekordowi SRV.
+- automatyczne szukanie miejsca dopuszcza naturalne drzewa i lagodne zbocza;
+- budowa korzysta z `system.runJob`, dlatego dluga operacja nie blokuje skryptu;
+- nieudany pathfinding Herobrine'a nie zatrzymuje stawiania domu;
+- teren jest przygotowywany i poziomowany przed budowa;
+- chronione bloki gracza nadal zatrzymuja budowe;
+- ksiazka zawiera pelne menu polecen;
+- dodano kopanie i przedluzanie tunelu pod domem;
+- nowy zapis `hiw:state_v11` usuwa problem starych zawieszonych stanow.
 
-## Aktualna architektura
+## Polecenia w ksiazce
 
-```text
-Gracz Minecraft
-↓
-test.mine-box.pl
-↓ DNS A + SRV
-VPS home.pl / 31.70.86.109:25565
-↓ reverse SSH tunnel
-MineBox VM / VirtualBox
-↓
-Minecraft server :25565
-```
+- Zbuduj dom przede mna
+- Wznow budowe domu
+- Wykop / rozbuduj tunel
+- Patroluj okolice
+- Obserwuj mnie
+- Nasladuj mnie
+- Zetnij drzewo
+- Wroc do domu
+- Zostaw czerwony znak
+- Stoj w ciemnym domu
+- Zatrzymaj obecna czynnosc
 
-## Ważne adresy
-
-```text
-Lokalny panel: http://192.168.1.42:5000
-Lokalny Minecraft: 192.168.1.42:25565
-Publiczny Minecraft IP: 31.70.86.109:25565
-Publiczny Minecraft domena: test.mine-box.pl
-```
-
-## Foldery
+## Komendy testowe
 
 ```text
-vm/   - pliki i komendy dla lokalnej VM MineBox
-vps/  - konfiguracja i komendy dla VPS home.pl
-dns/  - notatki DNS dla domeny mine-box.pl
-docs/ - opis architektury i dalsze kroki
+/scriptevent hiw:ping
+/scriptevent hiw:menu
+/scriptevent hiw:spawn
+/scriptevent hiw:build
+/scriptevent hiw:resume
+/scriptevent hiw:tunnel
+/scriptevent hiw:patrol
+/scriptevent hiw:observe
+/scriptevent hiw:mimic
+/scriptevent hiw:chop
+/scriptevent hiw:home
+/scriptevent hiw:warning
+/scriptevent hiw:stop
+/scriptevent hiw:reset
 ```
 
-## Uwaga bezpieczeństwa
+## Test budowy
 
-Nie wrzucać prywatnych kluczy SSH, haseł ani plików typu `minebox_vps` bez `.pub`.
+1. Stan na otwartym terenie.
+2. Patrz w strone miejsca, gdzie ma powstac dom.
+3. Otworz Dziennik Herobrine'a.
+4. Polecenia -> Zbuduj dom przede mna.
+5. Dom powstanie okolo 12-19 blokow przed graczem.
+6. Po ukonczeniu wybierz Wykop / rozbuduj tunel.
+
+## Bezpieczenstwo
+
+Tryb bezpieczny jest domyslnie wlaczony. Budowa domu i tunelu zatrzymuje
+sie przy wykryciu skrzyn, piecow, desek, drzwi, szkla, redstone i innych
+blokow wygladajacych na konstrukcje gracza.
+
+Nie testuj pierwszej wersji na jedynej kopii waznego swiata.

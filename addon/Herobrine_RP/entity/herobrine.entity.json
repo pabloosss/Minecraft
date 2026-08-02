@@ -1,0 +1,26 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "hiw:herobrine",
+      "materials": {"default":"entity_alphatest"},
+      "textures": {"default":"textures/entity/herobrine"},
+      "geometry": {"default":"geometry.hiw.herobrine"},
+      "render_controllers": ["controller.render.hiw.herobrine"],
+      "spawn_egg": {"base_color":"#202020","overlay_color":"#FFFFFF"},
+      "animations": {
+        "idle":"animation.hiw.herobrine.idle",
+        "walk":"animation.hiw.herobrine.walk",
+        "attack":"animation.hiw.herobrine.attack",
+        "vanish":"animation.hiw.herobrine.vanish",
+        "controller":"controller.animation.hiw.herobrine",
+        "crouch":"animation.hiw.herobrine.crouch",
+        "stare":"animation.hiw.herobrine.stare"
+      },
+      "scripts":{"animate":["controller"]},
+      "enable_attachables":true,
+      "held_item_ignores_lighting":false,
+      "hide_armor":false
+    }
+  }
+}

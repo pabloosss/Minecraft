@@ -1,0 +1,66 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Herobrine: He Is Watching - Behavior",
+    "description": "Stabilna budowa domu i tunelu oraz menu polecen dla Herobrine'a.",
+    "uuid": "b61a6514-ca45-4a0d-9fc4-ae34c7f8a645",
+    "version": [
+      0,
+      11,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      30
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "10fe6b25-ceac-40c6-9dca-c4b4a194d76c",
+      "version": [
+        0,
+        11,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "a01652ba-35c0-4e68-bb67-3389b7cbf291",
+      "version": [
+        0,
+        11,
+        0
+      ],
+      "entry": "scripts/main.js",
+      "description": "System zachowan, budowy, tunelu i polecen."
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "8131cab3-637c-4ecc-855a-9bb1f6b4a06a",
+      "version": [
+        0,
+        11,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.8.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.1.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "Pawel"
+    ],
+    "license": "All Rights Reserved",
+    "product_type": "addon"
+  }
+}
