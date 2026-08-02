@@ -1,105 +1,20 @@
 import { system } from "@minecraft/server";
 import { IDS, MOVEMENT } from "./config.js";
+import { state } from "./storage.js";
 import { debug, error } from "./logger.js";
-import { cleanupWaypoints, distance, isChunkLoaded, isValid } from "./utils.js";
-
-const jobs = new Map();
-
-function finish(entity, job, success, reason) {
-  if (jobs.get(entity.id) !== job) return;
-  if (job.interval !== undefined) system.clearRun(job.interval);
-  try {
-    if (job.waypoint?.isValid) job.waypoint.remove();
-  } catch {}
-  try {
-    if (entity.isValid) entity.triggerEvent("hiw:set_idle");
-  } catch {}
-  jobs.delete(entity.id);
-  job.resolve({ success, reason });
-}
-
-export function cancelMovement(entity, reason = "cancelled") {
-  const job = jobs.get(entity.id);
-  if (job) finish(entity, job, false, reason);
-}
-
-function goToOnce(entity, target, options = {}) {
-  cancelMovement(entity, "replaced");
-  return new Promise(resolve => {
-    if (!isValid(entity)) return resolve({ success: false, reason: "invalid_entity" });
-    const destination = { x: target.x, y: target.y, z: target.z };
-    if (!isChunkLoaded(entity.dimension, destination)) {
-      return resolve({ success: false, reason: "unloaded_chunk" });
-    }
-
-    cleanupWaypoints();
-    let waypoint;
-    try {
-      waypoint = entity.dimension.spawnEntity(IDS.waypoint, destination);
-    } catch (e) {
-      error("movement-spawn", e);
-      return resolve({ success: false, reason: "waypoint_spawn" });
-    }
-
-    try {
-      entity.triggerEvent("hiw:set_move");
-    } catch {}
-
-    const job = {
-      waypoint,
-      resolve,
-      started: system.currentTick,
-      lastProgress: system.currentTick,
-      lastDistance: distance(entity.location, destination),
-      interval: undefined,
-    };
-    jobs.set(entity.id, job);
-
-    const arrival = options.arrivalRadius ?? MOVEMENT.arrivalRadius;
-    const timeout = options.timeoutTicks ?? MOVEMENT.timeoutTicks;
-
-    job.interval = system.runInterval(() => {
-      if (!isValid(entity) || !waypoint?.isValid) return finish(entity, job, false, "invalid");
-      const current = distance(entity.location, destination);
-      if (current <= arrival) return finish(entity, job, true, "arrived");
-
-      if (job.lastDistance - current >= MOVEMENT.progressEpsilon) {
-        job.lastDistance = current;
-        job.lastProgress = system.currentTick;
-      }
-      if (system.currentTick - job.lastProgress > MOVEMENT.stuckTicks) {
-        return finish(entity, job, false, "stuck");
-      }
-      if (system.currentTick - job.started > timeout) {
-        return finish(entity, job, false, "timeout");
-      }
-      if (options.face) {
-        try {
-          entity.lookAt(options.face);
-        } catch {}
-      }
-      debug("move", `d=${current.toFixed(1)}`, system.currentTick);
-    }, MOVEMENT.pollTicks);
-  });
-}
-
-export async function goTo(entity, target, options = {}) {
-  const retries = Math.max(0, options.retries ?? 0);
-  let result;
-  for (let attempt = 0; attempt <= retries; attempt++) {
-    result = await goToOnce(entity, target, options);
-    if (result.success || !["stuck", "timeout", "invalid"].includes(result.reason)) return result;
-    if (!isValid(entity)) return result;
-    await new Promise(resolve => system.runTimeout(resolve, 12));
-  }
-  return result ?? { success: false, reason: "unknown" };
-}
-
-export function hasMovement(entity) {
-  return jobs.has(entity.id);
-}
-
-export function movementStatus(entity) {
-  const job = jobs.get(entity.id);
-  return job ? { started: job.started, lastDistance: job.lastDistance } : undefined;
-}
+import { distance, distance2D, getSurface, isChunkLoaded, isValid } from "./utils.js";
+const jobs = new Map(); let sequence = 0;
+function removeWaypoint(job) { if (job?.interval !== undefined) { try { system.clearRun(job.interval); } catch {} job.interval = undefined; } try { if (isValid(job?.waypoint)) job.waypoint.remove(); } catch {} job.waypoint = undefined; }
+function restoreIdle(entity) { if (!isValid(entity)) return; try { entity.triggerEvent("hiw:set_idle"); } catch {} }
+function complete(entity, job, success, reason) { if (jobs.get(entity.id) !== job) return; removeWaypoint(job); jobs.delete(entity.id); restoreIdle(entity); job.resolve({success,reason,reached: job.reached ?? 0}); }
+export function cancelMovement(entity, reason = "cancelled") { if (!entity) return; const job = jobs.get(entity.id); if (!job) return; job.cancelled = true; complete(entity, job, false, reason); }
+function projectToSurface(dimension, point) { const surface = getSurface(dimension, point.x, point.z); if (!surface) return undefined; const location = {x: surface.location.x + 0.5,y: surface.location.y + 1,z: surface.location.z + 0.5}; return isChunkLoaded(dimension, location) ? location : undefined; }
+function routePoints(entity, target) { const finalPoint = projectToSurface(entity.dimension, target); if (!finalPoint) return []; const start = entity.location; const total = distance2D(start, finalPoint); if (total <= MOVEMENT.segmentLength) return [finalPoint]; const count = Math.ceil(total / MOVEMENT.segmentLength); const points = []; for (let index = 1; index <= count; index++) { const t = index / count; const projected = projectToSurface(entity.dimension, {x: start.x + (finalPoint.x - start.x) * t,y: start.y + (finalPoint.y - start.y) * t,z: start.z + (finalPoint.z - start.z) * t}); if (!projected) continue; const previous = points[points.length - 1]; if (!previous || distance2D(previous, projected) >= 3) points.push(projected); } if (!points.length || distance2D(points[points.length - 1], finalPoint) > 1) points.push(finalPoint); return points; }
+function chooseMode(entity, destination, requested) { if (requested === "walk" || requested === "sprint") return requested; const setting = state().settings.movementMode ?? "normal"; if (setting === "careful") return "walk"; if (setting === "fast") return "sprint"; return distance2D(entity.location, destination) >= MOVEMENT.sprintThreshold ? "sprint" : "walk"; }
+function triggerMode(entity, mode) { try { entity.triggerEvent(mode === "sprint" ? "hiw:set_move_sprint" : "hiw:set_move_walk"); } catch {} }
+function moveSegment(entity, job, destination, options = {}) { return new Promise(resolve => { if (!isValid(entity) || job.cancelled) return resolve({success:false,reason:"cancelled"}); if (!isChunkLoaded(entity.dimension, destination)) return resolve({success:false,reason:"unloaded_chunk"}); removeWaypoint(job); try { job.waypoint = entity.dimension.spawnEntity(IDS.waypoint, destination); } catch (e) { error("movement-spawn", e); return resolve({success:false,reason:"waypoint_spawn"}); } const mode = chooseMode(entity, destination, options.speed); triggerMode(entity, mode); const started = system.currentTick; let lastProgress = started; let lastDistance = distance(entity.location, destination); const arrival = mode === "sprint" ? MOVEMENT.sprintArrivalRadius : (options.arrivalRadius ?? MOVEMENT.arrivalRadius); const timeout = options.segmentTimeoutTicks ?? MOVEMENT.segmentTimeoutTicks; job.interval = system.runInterval(() => { if (job.cancelled || jobs.get(entity.id) !== job) { removeWaypoint(job); resolve({success:false,reason:"cancelled"}); return; } if (!isValid(entity) || !isValid(job.waypoint)) { removeWaypoint(job); resolve({success:false,reason:"invalid"}); return; } const current = distance(entity.location, destination); if (current <= arrival) { removeWaypoint(job); job.reached = (job.reached ?? 0) + 1; resolve({success:true,reason:"arrived"}); return; } if (lastDistance - current >= MOVEMENT.progressEpsilon) { lastDistance = current; lastProgress = system.currentTick; } if (system.currentTick - lastProgress > MOVEMENT.stuckTicks) { removeWaypoint(job); resolve({success:false,reason:"stuck"}); return; } if (system.currentTick - started > timeout) { removeWaypoint(job); resolve({success:false,reason:"timeout"}); return; } debug("move", `${mode} d=${current.toFixed(1)}`, system.currentTick); }, MOVEMENT.pollTicks); }); }
+function detourCandidates(entity, destination) { const current = entity.location; const dx = destination.x - current.x; const dz = destination.z - current.z; const length = Math.max(0.001, Math.sqrt(dx * dx + dz * dz)); const right = {x: -dz / length,z: dx / length}; const mid = {x: current.x + dx * 0.55,z: current.z + dz * 0.55}; return [1,-1].map(side => projectToSurface(entity.dimension, {x: mid.x + right.x * MOVEMENT.detourDistance * side,y: current.y,z: mid.z + right.z * MOVEMENT.detourDistance * side})).filter(Boolean).sort((a,b) => Math.abs(a.y-current.y)-Math.abs(b.y-current.y)); }
+async function traverseRoute(entity, job, route, options) { for (const destination of route) { if (job.cancelled || jobs.get(entity.id) !== job) return {success:false,reason:"cancelled"}; let result = await moveSegment(entity, job, destination, options); if (result.success) continue; if (!["stuck","timeout"].includes(result.reason)) return result; let detoured = false; for (const detour of detourCandidates(entity,destination).slice(0,MOVEMENT.maxDetours)) { const first = await moveSegment(entity, job, detour, {...options,speed:"walk",arrivalRadius:2.1}); if (!first.success) continue; const second = await moveSegment(entity, job, destination, options); if (second.success) { detoured = true; break; } } if (!detoured) return result; } return {success:true,reason:"arrived"}; }
+export function goTo(entity, target, options = {}) { cancelMovement(entity, "replaced"); return new Promise(resolve => { if (!isValid(entity)) return resolve({success:false,reason:"invalid_entity"}); const route = routePoints(entity, target); if (!route.length) return resolve({success:false,reason:"unsafe_destination"}); const job = {id:++sequence,resolve,route,waypoint:undefined,interval:undefined,cancelled:false,reached:0,started:system.currentTick}; jobs.set(entity.id, job); traverseRoute(entity, job, route, options).then(result => complete(entity, job, result.success, result.reason)).catch(e => { error("movement-route", e); complete(entity, job, false, "exception"); }); }); }
+export function hasMovement(entity) { return Boolean(entity && jobs.has(entity.id)); }
+export function movementStatus(entity) { const job = entity ? jobs.get(entity.id) : undefined; if (!job) return undefined; return {started:job.started,reached:job.reached,routeLength:job.route.length}; }

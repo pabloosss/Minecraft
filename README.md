@@ -1,33 +1,48 @@
-# Herobrine: He Is Watching v0.11
+# Herobrine: He Is Watching v0.14
 
-Stabilizacyjna wersja addonu Minecraft Bedrock.
+Stabilizacyjna i rozbudowana wersja addonu Minecraft Bedrock.
 
 ## Najwazniejsze zmiany
 
-- automatyczne szukanie miejsca dopuszcza naturalne drzewa i lagodne zbocza;
-- budowa korzysta z `system.runJob`, dlatego dluga operacja nie blokuje skryptu;
-- nieudany pathfinding Herobrine'a nie zatrzymuje stawiania domu;
-- teren jest przygotowywany i poziomowany przed budowa;
-- chronione bloki gracza nadal zatrzymuja budowe;
-- ksiazka zawiera pelne menu polecen;
-- dodano kopanie i przedluzanie tunelu pod domem;
-- nowy zapis `hiw:state_v11` usuwa problem starych zawieszonych stanow.
+- natywny pathfinding zostal podzielony na krotkie odcinki;
+- po utknieciu Herobrine probuje obejsc przeszkode z lewej lub prawej;
+- osobne tryby chodzenia i sprintu;
+- zwiekszony promien zatrzymania ogranicza drzenie przy celu;
+- wszystkie akcje maja token anulowania, wiec stare polecenie nie dziala po wydaniu nowego;
+- dodano tryb ostroznego, normalnego i szybkiego ruchu;
+- dodano samodzielne akcje WL./WYL.;
+- dodano wylacznik straszenia z bliska i ratowania z blokow;
+- dodano wolne, normalne i szybkie tempo budowy;
+- dodano sprawdzanie i naprawe domu blok po bloku.
 
-## Polecenia w ksiazce
+## Nowe polecenia w ksiazce
 
-- Zbuduj dom przede mna
-- Wznow budowe domu
-- Wykop / rozbuduj tunel
+### Ruch i obecnosc
+
+- Podejdz do mnie
+- Podazaj za mna przez 35 sekund
+- Czekaj tutaj przez 60 sekund
 - Patroluj okolice
-- Obserwuj mnie
+- Pilnuj domu
+- Wroc do domu
+- Wyciagnij z blokow
+
+### Interakcje
+
+- Obserwuj mnie z oddali
 - Nasladuj mnie
 - Zetnij drzewo
-- Wroc do domu
 - Zostaw czerwony znak
 - Stoj w ciemnym domu
-- Zatrzymaj obecna czynnosc
 
-## Komendy testowe
+### Budowa
+
+- Zbuduj lub wznow dom
+- Wykop/przedluz tunel
+- Sprawdz stan domu
+- Napraw brakujace bloki domu
+
+## Komendy
 
 ```text
 /scriptevent hiw:ping
@@ -36,29 +51,23 @@ Stabilizacyjna wersja addonu Minecraft Bedrock.
 /scriptevent hiw:build
 /scriptevent hiw:resume
 /scriptevent hiw:tunnel
+/scriptevent hiw:repair
+/scriptevent hiw:inspect
+/scriptevent hiw:come
+/scriptevent hiw:follow
+/scriptevent hiw:wait
 /scriptevent hiw:patrol
+/scriptevent hiw:guard
 /scriptevent hiw:observe
 /scriptevent hiw:mimic
 /scriptevent hiw:chop
 /scriptevent hiw:home
 /scriptevent hiw:warning
+/scriptevent hiw:rescue
 /scriptevent hiw:stop
 /scriptevent hiw:reset
 ```
 
-## Test budowy
-
-1. Stan na otwartym terenie.
-2. Patrz w strone miejsca, gdzie ma powstac dom.
-3. Otworz Dziennik Herobrine'a.
-4. Polecenia -> Zbuduj dom przede mna.
-5. Dom powstanie okolo 12-19 blokow przed graczem.
-6. Po ukonczeniu wybierz Wykop / rozbuduj tunel.
-
 ## Bezpieczenstwo
 
-Tryb bezpieczny jest domyslnie wlaczony. Budowa domu i tunelu zatrzymuje
-sie przy wykryciu skrzyn, piecow, desek, drzwi, szkla, redstone i innych
-blokow wygladajacych na konstrukcje gracza.
-
-Nie testuj pierwszej wersji na jedynej kopii waznego swiata.
+Testuj na kopii swiata. Tryb bezpieczny i ratowanie z blokow sa domyslnie wlaczone.

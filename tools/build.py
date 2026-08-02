@@ -4,7 +4,7 @@ import zipfile
 root = Path(__file__).resolve().parents[1]
 dist = root / "dist"
 dist.mkdir(exist_ok=True)
-out = dist / "Herobrine_He_Is_Watching_v0.11.mcaddon"
+out = dist / "Herobrine_He_Is_Watching_v0.14.mcaddon"
 out.unlink(missing_ok=True)
 
 with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as archive:

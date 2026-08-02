@@ -1,31 +1,22 @@
-# Testowanie v0.11
+# Testowanie v0.14
 
-## Test podstawowy
+## Ruch
 
-1. Zaimportuj paczke.
-2. W nowym swiecie wlacz paczke zachowan i zasobow.
-3. Wpisz `/scriptevent hiw:ping`.
-4. Wynik powinien zawierac `Skrypt v0.11 dziala`.
-5. Przywolaj Herobrine'a przez ksiazke albo `/scriptevent hiw:spawn`.
+1. Uzyj `hiw:come` z odleglosci 20-30 blokow.
+2. Herobrine powinien isc odcinkami, a przy przeszkodzie sprobowac obejsc ja bokiem.
+3. Uzyj `hiw:follow` i zmieniaj kierunek marszu.
+4. W czasie podazania wydaj `hiw:wait` - poprzednia akcja musi zostac anulowana.
+5. Herobrine nie powinien drzec przy celu.
 
-## Test domu
+## Naprawa
 
-1. Stan na otwartym terenie.
-2. Patrz przed siebie.
-3. Ksiazka -> Polecenia -> Zbuduj dom przede mna.
-4. Status powinien przejsc przez `preparing`, `building`, `complete`.
-5. Nieudane dojscie Herobrine'a nie moze zatrzymac budowy.
+1. Ukoncz dom.
+2. Usun kilka jego blokow.
+3. Uzyj `hiw:inspect`, a potem `hiw:repair`.
+4. Brakujace bloki powinny wracac pojedynczo.
 
-## Test tunelu
+## Bezpieczenstwo
 
-1. Poczekaj na status domu `complete`.
-2. Ksiazka -> Wykop / rozbuduj tunel.
-3. Pierwsze uzycie tworzy schody i 12 blokow tunelu.
-4. Kolejne uzycie przedluza tunel o 12 blokow.
-
-## Diagnostyka
-
-- `/scriptevent hiw:status`
-- `/scriptevent hiw:ping`
-- wlacz Debug w ksiazce;
-- Content Log GUI/File w ustawieniach tworcy.
+1. Zamknij Herobrine'a blokami.
+2. Poczekaj kilka sekund lub uzyj `hiw:rescue`.
+3. Powinien trafic na bezpieczna powierzchnie.

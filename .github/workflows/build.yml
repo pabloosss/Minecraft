@@ -33,5 +33,5 @@ jobs:
         run: python tools/build.py
       - uses: actions/upload-artifact@v4
         with:
-          name: Herobrine-v0.11
+          name: Herobrine-v0.14
           path: dist/*.mcaddon

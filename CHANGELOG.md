@@ -1,5 +1,44 @@
 # Changelog
 
+## 0.14.0
+
+- Przebudowano pathfinding na segmenty.
+- Dodano obchodzenie przeszkod po utknieciu.
+- Dodano osobne tryby walk/sprint.
+- Dodano anulowanie starych akcji.
+- Dodano polecenia come, follow, wait i guard.
+- Dodano naprawe oraz inspekcje domu.
+- Dodano ustawienia ruchu, tempa budowy, autonomii i straszenia.
+- Rozszerzono ratowanie z blokow na zwykle akcje.
+- Zmieniono stan swiata na v14.
+
+## 0.13.0
+
+- Zastapiono `system.runJob` dokladnym harmonogramem `system.runTimeout`.
+- Dom jest stawiany po jednym bloku co 6 tickow.
+- Tunel jest kopany po jednej operacji co 5 tickow.
+- Dodano bezpieczne stanowiska pracy poza obrysem domu.
+- Ruch do stanowiska konczy sie przed rozpoczeciem stawiania blokow.
+- Dodano osobny tryb encji `hiw:work`.
+- Usunieto konflikt random stroll, unikania gracza i pathfindingu.
+- Usunieto `minecraft:can_climb`.
+- Dodano odpornosc na wszystkie obrazenia.
+- Dodano automatyczne leczenie i wyciaganie ze scian.
+- Dodano pojedynczy teleport awaryjny zamiast drgania i teleportowania co tick.
+- Tunel jest kopany z bezpiecznego wejscia.
+- Dodano migracje stanu z v0.12.
+
+## 0.12.0
+
+- Naprawiono nieprawidlowe ID `minecraft:nether_bricks`.
+- Uzyto poprawnego ID Bedrock `minecraft:nether_brick`.
+- Wznowiona budowa pomija poprawnie juz postawione bloki.
+- Wlasna skrzynia i inne elementy domu nie sa juz uznawane za chronione.
+- Wylaczono automatyczne ponawianie zatrzymanej budowy.
+- Usunieto petle spamujaca tym samym bledem na czacie.
+- Dodano migracje stanu swiata z v0.11 do v0.12.
+- Dodano test walidatora dla nieprawidlowego ID netherowych cegiel.
+
 ## 0.11.0
 
 - Przebudowano budowe domu na `system.runJob`.
@@ -17,16 +56,16 @@
 
 ## 0.10.0
 
-- Naprawiono krytyczny błąd watchdog resetujący ruch co 5 sekund.
-- Watchdog nie wywołuje już `hiw:set_idle` podczas aktywnej akcji.
-- Dodano fallback AI działający nawet bez skryptu.
-- Dodano unikanie gracza przy bardzo małym dystansie.
-- Dodano reakcję na podejście i krótki efekt znikania.
-- Dodano komendę diagnostyczną `/scriptevent hiw:ping`.
-- Dodano wiadomość potwierdzającą uruchomienie rdzenia.
+- Naprawiono krytyczny blad watchdog resetujacy ruch co 5 sekund.
+- Watchdog nie wywoluje juz `hiw:set_idle` podczas aktywnej akcji.
+- Dodano fallback AI dzialajacy nawet bez skryptu.
+- Dodano unikanie gracza przy bardzo malym dystansie.
+- Dodano reakcje na podejscie i krotki efekt znikania.
+- Dodano komende diagnostyczna `/scriptevent hiw:ping`.
+- Dodano wiadomosc potwierdzajaca uruchomienie rdzenia.
 - Zmieniono klucz zapisu na `hiw:state_v10`.
-- Skrócono odstępy między akcjami w trybie testowym.
-- Zwiększono tolerancję wykrywania utknięcia.
+- Skrocono odstepy miedzy akcjami w trybie testowym.
+- Zwiekszono tolerancje wykrywania utkniecia.
 - Ustawiono `@minecraft/server-ui` 2.1.0.
 
 ## 0.9.0

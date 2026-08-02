@@ -1,5 +1,5 @@
 pack.name=Herobrine: He Is Watching
-pack.description=Stabilna budowa domu, tunelu i menu polecen.
+pack.description=Lepszy ruch, naprawa domu i rozbudowane menu polecen.
 entity.hiw:herobrine.name=Herobrine
 item.spawn_egg.entity.hiw:herobrine.name=Jajo przywolania Herobrine'a
 item.hiw:guide.name=Dziennik Herobrine'a - Polecenia

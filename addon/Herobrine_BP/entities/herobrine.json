@@ -8,216 +8,64 @@
       "is_experimental": false
     },
     "component_groups": {
-      "hiw:move_to_waypoint": {
-        "minecraft:behavior.nearest_attackable_target": {
-          "priority": 1,
-          "must_see": false,
-          "reselect_targets": true,
-          "entity_types": [
-            {
-              "filters": {
-                "test": "is_family",
-                "subject": "other",
-                "value": "hiw_waypoint"
-              },
-              "max_dist": 128
-            }
-          ]
-        },
-        "minecraft:behavior.move_towards_target": {
-          "priority": 2,
-          "speed_multiplier": 1.0,
-          "within_radius": 1.15,
-          "control_flags": [
-            "move",
-            "look"
-          ]
-        },
-        "minecraft:behavior.look_at_target": {
-          "priority": 3,
-          "look_distance": 128,
-          "look_time": {
-            "min": 1.0,
-            "max": 3.0
-          },
-          "control_flags": [
-            "look"
-          ]
-        }
-      },
       "hiw:freeze": {
         "minecraft:behavior.look_at_player": {
           "priority": 1,
           "look_distance": 64,
           "probability": 1.0,
-          "look_time": {
-            "min": 3.0,
-            "max": 6.0
-          }
-        }
+          "look_time": {"min": 3.0,"max": 6.0}
+        },
+        "minecraft:movement": {"value": 0.0},
+        "minecraft:pushable": {"is_pushable": false,"is_pushable_by_piston": false}
       },
-      "hiw:vanish": {
-        "minecraft:instant_despawn": {}
+      "hiw:vanish": {"minecraft:instant_despawn": {}},
+      "hiw:idle_ai": {
+        "minecraft:behavior.open_door": {"priority": 5,"close_door_after": true},
+        "minecraft:behavior.look_at_player": {"priority": 6,"look_distance": 48,"probability": 0.32,"look_time": {"min": 1.0,"max": 3.0},"control_flags": ["look"]},
+        "minecraft:behavior.random_stroll": {"priority": 8,"speed_multiplier": 0.58,"xz_dist": 9,"y_dist": 1,"control_flags": ["move"],"interval": 160},
+        "minecraft:behavior.random_look_around": {"priority": 9,"control_flags": ["look"]}
+      },
+      "hiw:work": {"minecraft:movement": {"value": 0.0},"minecraft:pushable": {"is_pushable": false,"is_pushable_by_piston": false}},
+      "hiw:move_walk": {
+        "minecraft:behavior.nearest_attackable_target": {"priority": 1,"must_see": false,"reselect_targets": true,"entity_types": [{"filters": {"test": "is_family","subject": "other","value": "hiw_waypoint"},"max_dist": 128}]},
+        "minecraft:behavior.move_towards_target": {"priority": 2,"speed_multiplier": 0.82,"within_radius": 1.9,"control_flags": ["move","look","jump"]},
+        "minecraft:behavior.look_at_target": {"priority": 3,"look_distance": 128,"look_time": {"min": 0.4,"max": 1.2},"control_flags": ["look"]}
+      },
+      "hiw:move_sprint": {
+        "minecraft:behavior.nearest_attackable_target": {"priority": 1,"must_see": false,"reselect_targets": true,"entity_types": [{"filters": {"test": "is_family","subject": "other","value": "hiw_waypoint"},"max_dist": 128}]},
+        "minecraft:behavior.move_towards_target": {"priority": 2,"speed_multiplier": 1.18,"within_radius": 2.2,"control_flags": ["move","look","jump"]},
+        "minecraft:behavior.look_at_target": {"priority": 3,"look_distance": 128,"look_time": {"min": 0.2,"max": 0.8},"control_flags": ["look"]}
       }
     },
     "components": {
-      "minecraft:type_family": {
-        "family": [
-          "herobrine",
-          "mob"
-        ]
-      },
-      "minecraft:nameable": {
-        "always_show": false,
-        "allow_name_tag_renaming": false
-      },
+      "minecraft:type_family": {"family": ["herobrine","mob"]},
+      "minecraft:nameable": {"always_show": false,"allow_name_tag_renaming": false},
       "minecraft:persistent": {},
-      "minecraft:health": {
-        "value": 80,
-        "max": 80
-      },
-      "minecraft:collision_box": {
-        "width": 0.6,
-        "height": 1.8
-      },
-      "minecraft:movement": {
-        "value": 0.29
-      },
-      "minecraft:movement.basic": {
-        "max_turn": 30.0
-      },
-      "minecraft:navigation.walk": {
-        "avoid_damage_blocks": true,
-        "avoid_portals": true,
-        "avoid_water": true,
-        "can_open_doors": true,
-        "can_pass_doors": true,
-        "can_path_over_water": false,
-        "can_walk": true,
-        "can_swim": true,
-        "blocks_to_avoid": [
-          "minecraft:lava",
-          "minecraft:fire",
-          "minecraft:soul_fire",
-          "minecraft:cactus",
-          "minecraft:sweet_berry_bush",
-          "minecraft:powder_snow"
-        ]
-      },
+      "minecraft:health": {"value": 80,"max": 80},
+      "minecraft:collision_box": {"width": 0.6,"height": 1.8},
+      "minecraft:movement": {"value": 0.27},
+      "minecraft:movement.basic": {"max_turn": 30.0},
+      "minecraft:navigation.walk": {"avoid_damage_blocks": true,"avoid_portals": true,"avoid_water": true,"can_open_doors": true,"can_pass_doors": true,"can_path_over_water": false,"can_walk": true,"can_swim": true,"blocks_to_avoid": ["minecraft:lava","minecraft:fire","minecraft:soul_fire","minecraft:cactus","minecraft:sweet_berry_bush","minecraft:powder_snow","minecraft:magma","minecraft:campfire","minecraft:soul_campfire"],"can_jump": true,"can_float": true,"can_path_from_air": true,"using_door_annotation": true},
       "minecraft:jump.static": {},
-      "minecraft:can_climb": {},
-      "minecraft:knockback_resistance": {
-        "value": 0.45
-      },
+      "minecraft:knockback_resistance": {"value": 0.45},
       "minecraft:physics": {},
-      "minecraft:pushable": {
-        "is_pushable": true,
-        "is_pushable_by_piston": true
-      },
-      "minecraft:behavior.float": {
-        "priority": 0
-      },
-      "minecraft:follow_range": {
-        "value": 128,
-        "max": 128
-      },
-      "minecraft:loot": {
-        "table": "loot_tables/empty.json"
-      },
-      "minecraft:equippable": {
-        "slots": [
-          {
-            "slot": 0,
-            "item": "minecraft:air"
-          }
-        ]
-      },
-      "minecraft:behavior.equip_item": {
-        "priority": 7
-      },
-      "minecraft:behavior.open_door": {
-        "priority": 6,
-        "close_door_after": true
-      },
-      "minecraft:behavior.look_at_player": {
-        "priority": 5,
-        "look_distance": 48,
-        "probability": 0.55,
-        "look_time": {
-          "min": 1.0,
-          "max": 4.0
-        },
-        "control_flags": [
-          "look"
-        ]
-      },
-      "minecraft:behavior.avoid_mob_type": {
-        "priority": 7,
-        "entity_types": [
-          {
-            "filters": {
-              "test": "is_family",
-              "subject": "other",
-              "value": "player"
-            },
-            "max_dist": 4.5,
-            "walk_speed_multiplier": 1.0,
-            "sprint_speed_multiplier": 1.25
-          }
-        ],
-        "avoid_target_xz": 8,
-        "avoid_target_y": 3
-      },
-      "minecraft:behavior.random_stroll": {
-        "priority": 8,
-        "speed_multiplier": 0.75,
-        "xz_dist": 10,
-        "y_dist": 2
-      },
-      "minecraft:behavior.random_look_around": {
-        "priority": 9
-      }
+      "minecraft:pushable": {"is_pushable": true,"is_pushable_by_piston": false},
+      "minecraft:behavior.float": {"priority": 0},
+      "minecraft:follow_range": {"value": 128,"max": 128},
+      "minecraft:loot": {"table": "loot_tables/empty.json"},
+      "minecraft:equippable": {"slots": [{"slot": 0,"item": "minecraft:air"}]},
+      "minecraft:behavior.equip_item": {"priority": 7},
+      "minecraft:fire_immune": {},
+      "minecraft:damage_sensor": {"triggers": [{"deals_damage": "no"}]}
     },
     "events": {
-      "hiw:set_idle": {
-        "remove": {
-          "component_groups": [
-            "hiw:move_to_waypoint",
-            "hiw:freeze"
-          ]
-        }
-      },
-      "hiw:set_move": {
-        "remove": {
-          "component_groups": [
-            "hiw:freeze"
-          ]
-        },
-        "add": {
-          "component_groups": [
-            "hiw:move_to_waypoint"
-          ]
-        }
-      },
-      "hiw:set_freeze": {
-        "remove": {
-          "component_groups": [
-            "hiw:move_to_waypoint"
-          ]
-        },
-        "add": {
-          "component_groups": [
-            "hiw:freeze"
-          ]
-        }
-      },
-      "hiw:vanish": {
-        "add": {
-          "component_groups": [
-            "hiw:vanish"
-          ]
-        }
-      }
+      "hiw:set_idle": {"remove": {"component_groups": ["hiw:move_walk","hiw:move_sprint","hiw:freeze","hiw:work"]},"add": {"component_groups": ["hiw:idle_ai"]}},
+      "hiw:set_move": {"remove": {"component_groups": ["hiw:idle_ai","hiw:move_sprint","hiw:freeze","hiw:work"]},"add": {"component_groups": ["hiw:move_walk"]}},
+      "hiw:set_freeze": {"remove": {"component_groups": ["hiw:idle_ai","hiw:move_walk","hiw:move_sprint","hiw:work"]},"add": {"component_groups": ["hiw:freeze"]}},
+      "hiw:vanish": {"add": {"component_groups": ["hiw:vanish"]}},
+      "hiw:set_work": {"remove": {"component_groups": ["hiw:idle_ai","hiw:move_walk","hiw:move_sprint","hiw:freeze"]},"add": {"component_groups": ["hiw:work"]}},
+      "hiw:set_move_walk": {"remove": {"component_groups": ["hiw:idle_ai","hiw:move_sprint","hiw:freeze","hiw:work"]},"add": {"component_groups": ["hiw:move_walk"]}},
+      "hiw:set_move_sprint": {"remove": {"component_groups": ["hiw:idle_ai","hiw:move_walk","hiw:freeze","hiw:work"]},"add": {"component_groups": ["hiw:move_sprint"]}}
     }
   }
 }
